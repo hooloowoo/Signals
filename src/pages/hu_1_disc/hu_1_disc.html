@@ -1,0 +1,71 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{'title-text' | translate}}</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="darkLight()"><ion-icon [name]="daynight"></ion-icon></button>
+      <button ion-button icon-only (click)="selectLang()"><ion-icon [name]="selectedlang"></ion-icon></button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content overflow-scroll="false">
+  <div id="selector-bar" style="width:100%;display:block;height:3.5em;">  
+    <button id="era-selector" (click)="showEras()">{{eraName | translate}}</button>
+    <button id="signal-selector" (click)="showSignals()">{{sTypeName | translate}}</button>
+    <button id="typ-selector" (click)="showTypes()">{{signalName | translate}}</button>
+  </div>
+	<div id="container">
+    <div [@darkState]="dark" id="signal">
+      <img class="mast-high" src="assets/imgs/hu_I/hudistmast1.png" />
+      <img class="plate" [@discState]="armMainTop" src="assets/imgs/hu_I/hureddisc.png" />
+      <img *ngIf="isDistantVisible" class="plate" [@distDiscState]="distPlate" src="assets/imgs/hu_I/hudistplate1.png" />
+
+      <div *ngIf="isDistantVisible" id="next-signal">
+        <div id="nx-title">{{ 'NEXT_SIGNAL' | translate }}</div>
+        <img class="mast-high" src="assets/imgs/hu_I/humainmast_bs.png" />
+        <img [@nextTopArmState]="distPlate" class="arm-top" src="assets/imgs/hu_I/marmhuprism.png" />
+      </div>
+
+
+    </div>
+    <div [@xdarkState]="dark" id="lights">
+      <div *ngIf="!isDistantVisible" class="light" [@lightRedWhite]="armMainTop"></div>
+      <div *ngIf="isDistantVisible" class="light" [@lightGreenWhite]="distPlate"></div>
+
+      <div *ngIf="isDistantVisible" id="next-lights">
+        <div class="light-top" [@nextLightRedWhite]="distPlate"></div>
+      </div>
+
+    </div>
+
+    <div class="buttons" *ngIf="isDistantVisible" id="nextSpeedButtons">
+      <button class="{{nextStopStyle}}" (click)="nxstop()">{{ 'STOP' | translate }}</button>
+      <button class="{{nextMaxStyle}}" (click)="nxvmax()">{{ 'CLEAR' | translate }}</button>
+    </div>
+
+
+      <div *ngIf="!isDistantVisible" class="buttons" id="speedButtons">
+      <button class="{{mainStopStyle}}" (click)="astop()">{{ 'STOP' | translate }}</button>
+      <button class="{{mainMaxStyle}}" (click)="avmax()">{{ 'CLEAR' | translate }}</button>
+    </div>
+
+    <div class="buttons" *ngIf="isTypButtonsVisible" id="typButtons">
+      <ng-container *ngFor="let bd of signalSelector.getTypeButtons()">
+        <button (click)="goSignal(bd.typ)">{{bd.title | translate}}</button>
+      </ng-container>
+    </div>
+
+    <div class="buttons" *ngIf="isEraButtonsVisible" id="eraButtons">
+      <ng-container *ngFor="let era of signalSelector.getEraButtons()">
+        <button (click)="goEra(era.nr)">{{era.title | translate}}</button>
+      </ng-container>
+    </div>
+
+      <div class="buttons" *ngIf="isSignalButtonsVisible" id="signalButtons">
+        <ng-container *ngFor="let sigTyp of signalSelector.getSignalButtons()">
+          <button (click)="selectSignal(sigTyp.id)">{{sigTyp.title | translate}}</button>
+        </ng-container>
+      </div>
+
+  </div>
+</ion-content>

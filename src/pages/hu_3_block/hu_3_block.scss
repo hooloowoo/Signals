@@ -1,0 +1,135 @@
+page-hu_3_block {
+    @import "assets/css/globals.scss";
+    @import "assets/css/form_main.scss";
+    @import "assets/css/form_dist.scss";
+
+    img.mast-light {
+        position:absolute;
+        left : 61.5%;
+        bottom : 5%;
+        width: 14%;
+        background-color: transparent;
+    }
+
+    /* PLATES */
+
+    img.main-plate {
+        position:absolute;
+        left : 55%;
+        bottom : 57%;
+        width: 28%;
+        background-color: transparent;
+    }
+
+    img.entry-plate {
+        position:absolute;
+        left : 61.5%;
+        bottom : 57%;
+        width: 14%;
+        background-color: transparent;
+
+    }
+
+    img.dist-entry-plate {
+        position:absolute;
+        left : 61.5%;
+        bottom : 42.7%;
+        width: 14%;
+        background-color: transparent;
+
+    }
+
+    img.dist-ext-plate {
+        position:absolute;
+        left : 66%;
+        bottom : 37.5%;
+        width: 14%;
+        background-color: transparent;
+    }
+
+    img.track-plate {
+        position:absolute;
+        left : 61.7%;
+        bottom : 47%;
+        width: 14%;
+        background-color: transparent;
+    }
+
+    img.ext-plate-era {
+        position:absolute;
+        left : 66%;
+        bottom : 52%;
+        width: 14%;
+        background-color: transparent;
+    }
+
+    /* LIGHTS */
+
+
+    div.light-small {
+        position:absolute;
+        margin:.25%;
+        width: .8%;
+        height : .6%;
+        border-radius: 50%;
+    }
+
+
+    div.light {
+        position:absolute;
+        width: 1.33%;
+        height : 1%;
+        border-radius: 50%;
+    }
+
+    div.xtrack1 {left: 65.2%;bottom: 48.8%;}
+    div.xtrack2 {left: 66.7%;bottom: 48.8%;}
+    div.xtrack3 {left: 68.25%;bottom: 48.8%;}
+    div.xtrack4 {left: 69.75%;bottom: 48.8%;}
+    div.xtrack5 {left: 71.3%;bottom: 48.8%;}
+
+    div.redbottom {left: 64.2%;bottom: 61.2%;}
+    div.redmiddle {left: 64.2%;bottom: 67.4%;}
+    div.redtop {left: 64.2%;bottom: 73.8%;}
+
+    div.green {left: 72.4%;bottom: 67.4%;}
+    div.green2 {left: 72.4%;bottom: 61.2%;}
+    div.green3 {left: 64.2%;bottom: 61.2%;}
+
+    div.yellow-right {left: 72.4%;bottom: 67.4%;}
+    div.yellow-left-upper {left: 64.2%;bottom: 67.4%;}
+    div.yellow-left-lower {left: 64.2%;bottom: 61.2%;}
+
+    div.exit-yellow-right {left: 72.4%;bottom: 73.8%;}
+    div.exit-yellow-left-upper {left: 64.2%;bottom: 73.8%;}
+    div.exit-yellow-left-lower {left: 64.2%;bottom: 67.4%;}
+
+    div.ext-light {left: 75.4%;bottom: 53.6%;}
+
+
+    div.entry-red {left: 68%;bottom: 65.4%;}
+    div.entry-green {left: 68.3%;bottom: 62.5%;}
+    div.entry-green2 {left: 68.3%;bottom: 68.7%;}
+    div.entry-yellow {left: 71.5%;bottom: 54%;}
+    div.entry-yellow2 {left: 65.6%;bottom: 48.3%;}
+
+
+    div.dist-call-white-era3 {left: 71.6%;bottom: 39.3%;}
+
+    div.dist-entry-yellow-era3 {left: 71.5%;bottom: 54%;}
+    div.dist-entry-yellow2-era3 {left: 65.6%;bottom: 48.3%;}
+    div.dist-entry-yellow3-era3 {left: 75.5%;bottom: 39.2%;}
+    div.dist-entry-green-era3 {left: 71.5%;bottom: 51.1%;}
+    div.dist-entry-green2-era3 {left: 65.6%;bottom: 45.4%;}
+
+    div.dist-yellow-era3 {left: 71.5%;bottom: 68.3%;}
+    div.dist-yellow2-era3 {left: 65.6%;bottom: 62.6%;}
+    div.dist-yellow3-era3 {left: 75.5%;bottom: 53.8%;}
+    div.dist-green-era3 {left: 71.5%;bottom: 65.4%;}
+    div.dist-green2-era3 {left: 65.6%;bottom: 59.7%;}
+
+
+}
+
+
+

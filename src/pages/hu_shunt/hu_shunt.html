@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{'title-text' | translate}}</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="darkLight()"><ion-icon [name]="daynight"></ion-icon></button>
+      <button ion-button icon-only (click)="selectLang()"><ion-icon [name]="selectedlang"></ion-icon></button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content overflow-scroll="false">
+  <div id="selector-bar" style="width:100%;display:block;height:3.5em;">  
+    <button id="era-selector" (click)="showEras()">{{eraName | translate}}</button>
+    <button id="signal-selector" (click)="showSignals()">{{sTypeName | translate}}</button>
+    <button id="typ-selector" (click)="showTypes()">{{signalName | translate}}</button>
+  </div>
+	<div id="container">
+    <div [@darkState]="dark" id="signal">
+      <img class="mast-shunt" src="assets/imgs/hu_I/{{mainmastimage}}.png" />
+      <img class="plate-shunt" [@plateState]="armMainTop" src="assets/imgs/hu_I/{{plateimage}}.png" />
+      <img class="prism-shunt" [@prismState]="armMainTop" src="assets/imgs/hu_I/shuntprismhu.png" />
+      <img class="mast-high" *ngIf="isMastPlateVisible" src="assets/imgs/hu_I/hushuntmastplate.png" />
+    </div>
+    <div [@xdarkState]="dark" id="lights">
+      <div class="light-shunt" *ngIf="!isPlateVisible" [@lightBlueWhite]="armMainTop"></div>
+      <img class="plate-shunt" style="opacity: .5" *ngIf="isPlateVisible" [@plateState]="armMainTop" src="assets/imgs/hu_I/{{plateimage}}.png" />
+      <img class="mast-high" style="opacity: .5" *ngIf="isMastPlateVisible" src="assets/imgs/hu_I/hushuntmastplate.png" />
+    </div>
+    <div class="buttons" id="speedButtons">    
+      <button class="{{mainStopStyle}}" (click)="astop()">{{ 'SHUNTING_FORBIDDEN' | translate }}</button>
+      <button class="{{mainMaxStyle}}" (click)="avmax()">{{ 'SHUNTING_ALLOWED' | translate }}</button>
+    </div>
+
+    <div class="buttons" *ngIf="isTypButtonsVisible" id="typButtons">
+      <ng-container *ngFor="let bd of signalSelector.getTypeButtons()">
+        <button (click)="goSignal(bd.typ)">{{bd.title | translate}}</button>
+      </ng-container>
+    </div>
+
+    <div class="buttons" *ngIf="isEraButtonsVisible" id="eraButtons">
+      <ng-container *ngFor="let era of signalSelector.getEraButtons()">
+        <button (click)="goEra(era.nr)">{{era.title | translate}}</button>
+      </ng-container>
+    </div>
+
+      <div class="buttons" *ngIf="isSignalButtonsVisible" id="signalButtons">
+        <ng-container *ngFor="let sigTyp of signalSelector.getSignalButtons()">
+          <button (click)="selectSignal(sigTyp.id)">{{sigTyp.title | translate}}</button>
+        </ng-container>
+      </div>
+
+  </div>
+</ion-content>

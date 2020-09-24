@@ -1,0 +1,204 @@
+page-hu_2_light {
+    @import "assets/css/globals.scss";
+    @import "assets/css/form_main.scss";
+    @import "assets/css/form_dist.scss";
+
+    img.mast-light {
+        position:absolute;
+        left : 61.5%;
+        bottom : 5%;
+        width: 14%;
+        background-color: transparent;
+    }
+
+
+    /* PLATES */
+
+/*    img.main-plate-era2 {
+        position:absolute;
+        left : 61.5%;
+        bottom : 44.4%;
+        width: 14%;
+        background-color: transparent;
+
+    }
+
+    img.main-entry-plate-era2 {
+        position:absolute;
+        left : 60%;
+        bottom : 50.2%;
+        width: 14%;
+        background-color: transparent;
+
+    }
+
+
+
+    img.dist-entry-plate-era1 {
+        position:absolute;
+        left : 63.6%;
+        bottom : 38%;
+        width: 10%;
+        background-color: transparent;
+
+    }
+
+    img.dist-plate-era1 {
+        position:absolute;
+        left : 63.5%;
+        bottom : 47%;
+        width: 10%;
+        background-color: transparent;
+
+    }
+
+    img.dist-entry-plate-era2 {
+        position:absolute;
+        left : 61%;
+        bottom : 35.5%;
+        width: 14%;
+        background-color: transparent;
+    }
+
+    img.dist-plate-era2 {
+        position:absolute;
+        left : 61%;
+        bottom : 47%;
+        width: 14%;
+        background-color: transparent;
+    }
+
+
+    img.dist-entry-plate-era3 {
+        position:absolute;
+        left : 61.5%;
+        bottom : 42.7%;
+        width: 14%;
+        background-color: transparent;
+
+    }
+
+    img.dist-plate-era3 {
+        position:absolute;
+        left : 61.5%;
+        bottom : 57%;
+        width: 14%;
+        background-color: transparent;
+
+    }
+
+    img.ext-plate-era3 {
+        position:absolute;
+        left : 66%;
+        bottom : 37.5%;
+        width: 14%;
+        background-color: transparent;
+    }
+
+    img.ext-dist-plate-era3 {
+        position:absolute;
+        left : 66%;
+        bottom : 52%;
+        width: 14%;
+        background-color: transparent;
+    }
+*/
+    img.main-plate {
+        position:absolute;
+        left : 61.5%;
+        bottom : 57%;
+        width: 14%;
+        background-color: transparent;
+
+    }
+
+
+    img.ext-plate-line {
+        position:absolute;
+        left : 61.5%;
+        bottom : 51%;
+        width: 14%;
+        background-color: transparent;
+    }
+
+    img.call-plate-main {
+        position:absolute;
+        left : 61.5%;
+        bottom : 47%;
+        width: 14%;
+        background-color: transparent;
+    }
+
+
+    /* LIGHTS */
+    div.light {
+        position:absolute;
+        width: 1%;
+        height : .75%;
+        border-radius: 50%;
+    }
+
+
+    div.light-line {
+        position:absolute;
+        width: 3%;
+        height : .3%;
+    }
+
+    div.light-vertical-line {
+        position:absolute;
+        width: .3%;
+        height : 2%;
+    }
+
+
+    div.red {left: 68.3%;bottom: 63%;}
+    div.green {left: 68.3%;bottom: 70.5%;}
+    div.block-green {left: 68.3%;bottom: 66.2%;}
+    div.white-call {left: 68.3%;bottom: 48.1%;}
+    div.yellow-upper {left: 68.3%;bottom: 67.2%;}
+    div.yellow-lower {left: 68.3%;bottom: 59.8%;}
+
+    div.green-line-middle {left: 67.3%;bottom: 53.3%;}
+    div.green-line-top {left: 67.3%;bottom: 54.3%;}
+    div.green-line-bottom {left: 67.3%;bottom: 52.3%;}
+    div.yellow-line {left: 68.7%;bottom: 52.3%;}
+
+    div.dwarf-blue {left: 68.5%;bottom: 13%;}
+    div.dwarf-white {left: 68.5%;bottom: 9.8%;}
+
+
+    div.blinking-yellow {
+        background-color: #FFE000;
+        box-shadow : 0 0 6px 6px #FFE000;
+        animation:blinkingLight 1s infinite;
+    }
+
+    div.blinking-green {
+        background-color: #00FF00;
+        box-shadow : 0 0 6px 6px #00FF00;
+        animation:blinkingLight 1s infinite;
+    }
+
+    div.blinking-white {
+        background-color: #FFFFFF;
+        box-shadow : 0 0 6px 6px #FFFFFF;
+        animation:blinkingLight 1s infinite;
+    }
+
+    div.blinking-fast-green {
+        background-color: #00FF00;
+        box-shadow : 0 0 6px 6px #00FF00;
+        animation:blinkingLight .5s infinite;
+    }
+
+    @keyframes blinkingLight {
+        0%{		opacity : 0;	}
+        50%{	opacity : 1;	}
+        100%{	opacity : 0;	}
+    }
+
+}
+
+
+

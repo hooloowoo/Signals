@@ -1,0 +1,25 @@
+page-hu_1_plate {
+    @import "assets/css/globals.scss";
+    @import "assets/css/form_main.scss";
+    @import "assets/css/form_dist.scss";
+
+    img.plate {
+        position:absolute;
+        left : 64.4%;
+        bottom : 80.2%;
+        width: 15%;
+        background-color: transparent;
+    }
+
+    div.light {
+        position:absolute;
+        top: 18%;
+        left: 68.2%;
+        width: 1.5%;
+        height : 1%;
+        border-radius: 50%;
+    }
+}
+
+
+

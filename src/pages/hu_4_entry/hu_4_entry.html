@@ -1,0 +1,101 @@
+<ion-header>
+  <ion-navbar>
+      <ion-title>{{'title-text' | translate}}</ion-title>
+      <ion-buttons end>
+          <button ion-button icon-only (click)="darkLight()"><ion-icon [name]="daynight"></ion-icon></button>
+          <button ion-button icon-only (click)="selectLang()"><ion-icon [name]="selectedlang"></ion-icon></button>
+      </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content overflow-scroll="false">
+	<div id="selector-bar" style="width:100%;display:block;height:3.5em;">	
+		<button id="era-selector" (click)="showEras()">{{eraName | translate}}</button>
+        <button id="signal-selector" (click)="showSignals()">{{sTypeName | translate}}</button>
+        <button id="typ-selector" (click)="showTypes()">{{signalName | translate}}</button>
+	</div>
+	<div id="container">
+    <div [@darkState]="dark" id="signal">
+
+      <div *ngIf="isMainVisible">
+        <img class="mast-high" src="assets/imgs/hu_I/{{mainmastimage}}.png" />
+        <img class="prism-upper" [@prismState]="armMainTop" src="assets/imgs/hu_I/{{prismimage}}.png" />
+        <img class="arm-top" [@topArmState]="armMainTop" src="assets/imgs/hu_I/marmhu.png" />
+        <img class="main-vertical-prism" *ngIf="isSecondArmVisible" [@prismState]="armMainSecond" src="assets/imgs/hu_I/sprismhu.png" />
+        <img class="main-vertical-arm" *ngIf="isSecondArmVisible" [@verticalArmState]="armMainSecond" src="assets/imgs/hu_I/sarmhu.png" />
+        <img class="main-vertical-prism2" *ngIf="isThirdArmVisible" [@prismState]="armMainThird" src="assets/imgs/hu_I/sprismhu.png" />
+        <img class="main-vertical-arm2" *ngIf="isThirdArmVisible" [@verticalArmState]="armMainThird" src="assets/imgs/hu_I/sarmhu.png" />
+      </div>
+
+      <div *ngIf="isDistantVisible">
+        <img class="dist-mast" src="assets/imgs/hu_I/{{distmastimage}}.png" />
+        <img class="dist-mast" *ngIf="isDistWarnPlateVisible" src="assets/imgs/hu_I/hudistwarnplate1.png" />
+        <img class="plate-dist-rd" *ngIf="isDistArmVisible" [@distPlateState]="distPlate" src="assets/imgs/hu_I/hudistplate_rd.png" />
+        <img class="plate-dist-sq" *ngIf="!isDistArmVisible" [@distPlateState]="distPlate" src="assets/imgs/hu_I/hudistplate_sq.png" />
+        <img class="prism-dist-upper" [@distPrismState]="distPlate" src="assets/imgs/hu_I/dprismhu.png" />
+        <img class="prism-dist-lower-left" *ngIf="isDistArmVisible" [@distPrism3State]="distArm" src="assets/imgs/hu_I/dprism3hu2.png" />
+        <img class="dist-arm" *ngIf="isDistArmVisible" [@distArmState]="distArm" src="assets/imgs/hu_I/hudist3arm2.png" />
+        <div id="next-signal">
+            <div id="nx-title">{{ 'NEXT_SIGNAL' | translate }}</div>
+          <img class="mast-high" src="assets/imgs/hu_I/{{mainmastimage}}.png" />
+          <img class="prism-upper" [@nextPrismState]="nextArmMainTop" src="assets/imgs/hu_I/{{prismimage}}.png" />
+          <img [@nextTopArmState]="nextArmMainTop" class="arm-top" src="assets/imgs/hu_I/marmhu.png" />
+          <img [@nextPrismState]="nextArmMainSecond" *ngIf="isDistArmVisible" class="main-vertical-prism" src="assets/imgs/hu_I/sprismhu.png" />
+          <img [@nextVerticalArmState]="nextArmMainSecond" *ngIf="isDistArmVisible" class="main-vertical-arm" src="assets/imgs/hu_I/sarmhu.png" />
+        </div>
+      </div>
+    </div>
+    <div [@xdarkState]="dark" id="lights">
+      <div *ngIf="isMainVisible">
+        <div *ngIf="!isProtection" class="light-top" [@lightRedGreen]="armMainTop"></div>
+        <div *ngIf="isProtection" class="light-top" [@lightRedYellow]="armMainTop"></div>
+        <div class="light-middle" *ngIf="isSecondArmVisible" [@lightNoneGreen]="armMainSecond"></div>
+        <div class="light-low" *ngIf="isThirdArmVisible" [@lightNoneGreen]="armMainThird"></div>
+      </div>
+      <div *ngIf="isDistantVisible">
+        <div class="light-dist-plate" [@lightYellowGreen]="distPlate"></div>
+        <div class="light-dist-arm" *ngIf="isDistArmVisible" [@distLightNoneGreen]="distArm"></div>
+        <div id="next-lights">
+          <div *ngIf="!isProtection" class="light-top" [@nextLightRedGreen]="nextArmMainTop"></div>
+          <div *ngIf="isProtection" class="light-top" [@nextLightRedYellow]="nextArmMainTop"></div>
+          <div class="light-middle" *ngIf="isDistArmVisible" [@nextLightNoneGreen]="nextArmMainSecond"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="buttons" *ngIf="isSpeedButtonsVisible && isDistantVisible" id="nextSpeedButtons">
+      <button class="{{nextStopStyle}}" (click)="nxstop()">{{ 'STOP' | translate }}</button>
+      <button class="{{nextMaxStyle}}" (click)="nxvmax()">{{ 'CLEAR' | translate }}</button>
+      <button class="{{nextSlowStyle}}" (click)="nxslow()" *ngIf="isDistArmVisible" >40 km/h</button>
+    </div>    
+
+    <div class="buttons" *ngIf="isSpeedButtonsVisible && isMainVisible" id="speedButtons">
+        <button class="{{mainStopStyle}}" (click)="astop()">{{ 'STOP' | translate }}</button>
+        <button class="{{mainMaxStyle}}" (click)="avmax()">{{ 'CLEAR' | translate }}</button>
+        <button class="{{mainSlowStyle}}" (click)="aslow()" *ngIf="isSecondArmVisible" >40 km/h</button>
+    </div>
+
+    <div class="buttons" *ngIf="isTypButtonsVisible" id="typButtons">
+        <ng-container *ngFor="let bd of signalSelector.getTypeButtons()">
+          <button (click)="goSignal(bd.typ)">{{bd.title | translate}}</button>
+        </ng-container>
+    </div>
+
+    <div class="buttons" *ngIf="isEraButtonsVisible" id="eraButtons">
+        <ng-container *ngFor="let era of signalSelector.getEraButtons()">
+            <button (click)="goEra(era.nr)">{{era.title | translate}}</button>
+        </ng-container>
+    </div>
+
+        <div class="buttons" *ngIf="isSignalButtonsVisible" id="signalButtons">
+            <ng-container *ngFor="let sigTyp of signalSelector.getSignalButtons()">
+                <button (click)="selectSignal(sigTyp.id)">{{sigTyp.title | translate}}</button>
+            </ng-container>
+        </div>
+
+  </div>
+
+
+
+
+</ion-content>

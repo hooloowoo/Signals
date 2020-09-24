@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{'title-text' | translate}}</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="darkLight()"><ion-icon [name]="daynight"></ion-icon></button>
+      <button ion-button icon-only (click)="selectLang()"><ion-icon [name]="selectedlang"></ion-icon></button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content overflow-scroll="false">
+  <div id="selector-bar" style="width:100%;display:block;height:3.5em;">  
+    <button id="era-selector" (click)="showEras()">{{eraName | translate}}</button>
+    <button id="signal-selector" (click)="showSignals()">{{sTypeName | translate}}</button>
+    <button id="typ-selector" (click)="showTypes()">{{signalName | translate}}</button>
+  </div>
+	<div id="container">
+    <div [@darkState]="dark" id="signal">
+      <img class="mast" src="assets/imgs/hu_I/{{coneimage}}.png" />
+      <img class="plate" [@discMoveState]="armMainTop" src="assets/imgs/hu_I/huconeplate.png" />
+    </div>
+    <div [@xdarkState]="dark" id="lights">
+      <div *ngIf="isWhiteLight" class="light" [@lightRedWhite]="armMainTop"></div>
+      <div *ngIf="!isWhiteLight" class="light" [@lightRedGreen]="armMainTop"></div>
+    </div>
+
+    <div class="buttons" style="bottom:60%" id="speedButtons">
+      <button class="{{mainStopStyle}}" (click)="astop()">{{ 'STOP' | translate }}</button>
+      <button class="{{mainMaxStyle}}" (click)="avmax()">{{ 'CLEAR' | translate }}</button>
+    </div>
+
+    <div class="buttons" *ngIf="isTypButtonsVisible" id="typButtons">
+      <ng-container *ngFor="let bd of signalSelector.getTypeButtons()">
+        <button (click)="goSignal(bd.typ)">{{bd.title | translate}}</button>
+      </ng-container>
+    </div>
+
+    <div class="buttons" *ngIf="isEraButtonsVisible" id="eraButtons">
+      <ng-container *ngFor="let era of signalSelector.getEraButtons()">
+        <button (click)="goEra(era.nr)">{{era.title | translate}}</button>
+      </ng-container>
+    </div>
+
+      <div class="buttons" *ngIf="isSignalButtonsVisible" id="signalButtons">
+        <ng-container *ngFor="let sigTyp of signalSelector.getSignalButtons()">
+          <button (click)="selectSignal(sigTyp.id)">{{sigTyp.title | translate}}</button>
+        </ng-container>
+      </div>
+
+  </div>
+</ion-content>

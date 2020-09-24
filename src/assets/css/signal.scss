@@ -1,0 +1,54 @@
+::-webkit-scrollbar{
+	display:none;
+}
+
+.content {
+	background-color: #000000;
+}
+
+div#lights {
+  background-color: transparent;
+  position : absolute;
+}
+
+
+div#signal {
+  background-image: url('../assets/imgs/bckgnd.png');
+  background-size: cover;
+  position : absolute;
+	
+}
+
+
+
+div#next-signal {
+  background-image: url('../assets/imgs/bckgnd.png');
+  background-size: cover;
+  position : absolute;
+  left : 0;
+  top : 0;
+  width : 40%;
+  height: 40%;
+}
+
+div#next-lights {
+  position : absolute;
+  left : 0;
+  top : 0;
+  width : 40%;
+  height: 40%;
+}
+
+
+
+div.lightUpperArm {
+    position:absolute;
+    top: 16.9%;
+    left: 68.6%;
+    width: 1%;
+    height : .75%;
+    border-radius: 50%;
+}
+
+
+

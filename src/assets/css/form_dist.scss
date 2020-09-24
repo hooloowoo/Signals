@@ -1,0 +1,106 @@
+img.dist-mast {
+  position:absolute;
+  left : 51.1%; 
+  bottom : 5%;
+  width: 14%;
+  background-color: transparent;
+}
+
+img.plate-dist-sq {
+    position:absolute;
+    left : 51%;
+    bottom : 48.5%;
+    width: 15%;
+    background-color: transparent;
+}
+
+img.plate-dist-rd {
+    position:absolute;
+    left : 51.6%;
+    bottom : 48%;
+    width: 13.5%;
+    background-color: transparent;
+} 
+
+img.prism-dist-upper {
+    position:absolute;
+    left : 57.1%; 
+    bottom : 42%;
+    width: 6.5%;
+    background-color: transparent;
+    transform-origin: 20% 20%;
+}
+
+img.prism-dist-lower-right {
+    position:absolute;
+    left : 59.1%;
+    bottom : 33%;
+    width: 6.5%;
+    background-color: transparent;
+    transform-origin: 20% 20%;
+}
+
+img.prism-dist-lower-left {
+    position:absolute;
+    left : 52.1%;
+    bottom : 30.5%;
+    width: 6.5%;
+    background-color: transparent;
+    transform-origin: 90% 10%;
+}
+
+img.dist-arm {
+    position:absolute;
+    left : 56.6%;
+    bottom : 32%;
+    width: 3.5%;
+    background-color: transparent;
+    transform-origin: 50% 50%;
+}
+
+
+div.light-dist-plate {
+  position:absolute;
+  left: 61.1%;
+  bottom: 45.1%;
+  width: 2%;
+  height : 1.5%;
+  border-radius: 50%;
+}
+
+
+div.light-dist-arm {
+  position:absolute;
+  left: 53.6%;
+  bottom: 33.9%;
+  width: 2%;
+  height : 1.5%;
+  border-radius: 50%;
+}
+
+div.light-dist-arm-right {
+  position:absolute;
+  left: 61.1%;
+  bottom: 34%;
+  width: 2%;
+  height : 1.5%;
+  border-radius: 50%;
+}
+
+div#next-signal {
+  background-image: url('../../assets/imgs/bckgnd.png');
+  background-size: cover;
+  position : absolute;
+  left : 0;
+  top : 0;
+  width : 40%;
+  height: 40%;
+}
+
+div#next-lights {
+  position : absolute;
+  left : 0;
+  top : 0;
+  width : 40%;
+  height: 40%;
+}

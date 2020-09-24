@@ -1,0 +1,101 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{'title-text' | translate}}</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="darkLight()"><ion-icon [name]="daynight"></ion-icon></button>
+      <button ion-button icon-only (click)="selectLang()"><ion-icon [name]="selectedlang"></ion-icon></button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content overflow-scroll="false">
+  <div id="selector-bar" style="width:100%;display:block;height:3.5em;">  
+    <button id="era-selector" (click)="showEras()">{{eraName | translate}}</button>
+    <button id="signal-selector" (click)="showSignals()">{{sTypeName | translate}}</button>
+    <button id="typ-selector" (click)="showTypes()">{{signalName | translate}}</button>
+  </div>
+	<div id="container">
+    <div [@darkState]="dark" id="signal">
+      <img class="{{mastStyle}}" src="assets/imgs/hu_I/{{imgMast}}.png" />
+      <img class="{{mastStyle}}" *ngIf="isDistWarnPlateVisible" src="assets/imgs/hu_I/hudistwarnplate1.png" />
+
+      <img class="{{mainPlateStyle}}" *ngIf="isMainPlateVisible" src="assets/imgs/hu_I/{{imgMainPlate}}.png" />
+      <img class="{{distPlateStyle}}" *ngIf="isDistPlateVisible" src="assets/imgs/hu_I/{{imgDistPlate}}.png" />
+      <img class="{{extPlateStyle}}" *ngIf="isExtPlateVisible" src="assets/imgs/hu_I/{{imgExtPlate}}.png" />
+      <div *ngIf="isNextVisible" id="next-signal">
+        <div id="nx-title">{{ 'NEXT_SIGNAL' | translate }}</div>
+        <img class="{{mastStyle}}" src="assets/imgs/hu_I/{{imgMast}}.png" />
+        <img class="{{nextMainPlateStyle}}" src="assets/imgs/hu_I/{{imgNextMainPlate}}.png" />
+      </div>
+    </div>
+    <div id="lights">
+
+      <div class="light {{redStyle}}" *ngIf="isMainRedLightVisible" [@lightRed]="mainRed"></div>
+      <div class="light {{greenStyle}}" *ngIf="isMainGreenLightVisible" [@lightGreen]="mainGreen"></div>
+      <div class="light {{greenSecondStyle}}" *ngIf="isMainSecondGreenLightVisible" [@lightGreen]="mainGreen2"></div>
+      <div class="light {{greenThirdStyle}}" *ngIf="isMainThirdGreenLightVisible" [@lightGreen]="mainGreen3"></div>
+      <div class="light {{callsignStyle}}" *ngIf="isMainCallsignLightVisible" [@lightWhite]="mainCallsign"></div>
+      <div class="light {{distYellowStyle}}" *ngIf="isDistYellowLightVisible" [@lightYellow]="distYellow"></div>
+      <div class="light {{distSecondYellowStyle}}" *ngIf="isDistSecondYellowLightVisible" [@lightYellow]="distYellow"></div>
+      <div class="light {{distThirdYellowStyle}}" *ngIf="isDistThirdYellowLightVisible" [@lightYellow]="distSlow"></div>
+      <div class="light {{distGreenStyle}}" *ngIf="isDistGreenLightVisible" [@lightGreen]="distGreen"></div>
+      <div class="light {{distSecondGreenStyle}}" *ngIf="isDistSecondGreenLightVisible" [@lightGreen]="distGreen"></div>
+      <div class="light {{distThirdGreenStyle}}" *ngIf="isDistThirdGreenLightVisible" [@lightGreen]="distSlow"></div>
+
+      <div class="light {{redStyle}}" *ngIf="isShunt" [@lightBlue]="mainRed"></div>
+      <div class="light {{greenStyle}}" *ngIf="isShunt" [@lightWhite]="mainGreen"></div>
+
+      <div *ngIf="isNextVisible" id="next-lights">
+        <div class="light {{nextRedStyle}}" [@lightNextRed]="nextRed"></div>
+        <div class="light {{nextGreenStyle}}" [@lightNextGreen]="nextGreen"></div>
+        <div class="light {{nextGreenSecondStyle}}" *ngIf="isDistThreeAspect" [@lightNextGreen]="nextSlow"></div>
+      </div>
+
+    </div>
+
+    <div class="buttons" *ngIf="isDistPlateVisible && isSpeedButtonsVisible" id="nextSpeedButtons">
+      <button class="{{nextStopStyle}}" (click)="nxstop()">Állj!</button>
+      <button class="{{nextMaxStyle}}" (click)="nxvmax()">Szabad</button>
+      <button class="{{nextSlowStyle}}" *ngIf="isDistThreeAspect" (click)="nxslow()" >Szabad<br>kitérő<br>váltón</button>
+
+    </div>
+
+
+    <div *ngIf="isMainPlateVisible && isSpeedButtonsVisible" class="buttons" id="speedButtons">
+
+      <button class="{{mainStopStyle}}" *ngIf="(!isShunt)" (click)="astop()">{{ 'STOP' | translate }}</button>
+      <button class="{{mainMaxStyle}}" *ngIf="(!isExit && !isShunt)" (click)="avmax()">{{ 'CLEAR' | translate }}</button>
+
+      <button class="{{mainStopStyle}}" *ngIf="isShunt" (click)="astop()">{{ 'SHUNTING_FORBIDDEN' | translate }}</button>
+      <button class="{{mainMaxStyle}}" *ngIf="isShunt" (click)="avmax()">{{ 'SHUNTING_ALLOWED' | translate }}</button>
+
+
+      <button class="{{mainSlowStyle}}" *ngIf="(!isExit) && (isMainThreeAspect || isMainFourAspect)" (click)="aslow()" >{{ 'CLEAR_DIV' | translate }}</button>
+      <button class="{{mainSlow2Style}}" *ngIf="(!isExit) && isMainFourAspect" (click)="aslow2()" >{{ 'CLEAR_DIV2' | translate }}</button>
+      <button class="{{mainMaxStyle}}" *ngIf="isExit" (click)="avmax()">{{ 'EXIT_TO_I' | translate }}</button>
+      <button class="{{mainSlowStyle}}" *ngIf="isExit && (isMainThreeAspect || isMainFourAspect)" (click)="aslow()" >{{ 'EXIT_TO_II' | translate }}</button>
+      <button class="{{mainSlow2Style}}" *ngIf="isExit && isMainFourAspect" (click)="aslow2()" >{{ 'EXIT_TO_III' | translate }}</button>
+      <button class="{{mainCallsignStyle}}" *ngIf="isMainCallsignLightVisible" (click)="acall()" >{{ 'CALL_SIGN' | translate }}</button>
+    </div>
+
+
+
+    <div class="buttons" *ngIf="isTypButtonsVisible" id="typButtons">
+      <ng-container *ngFor="let bd of signalSelector.getTypeButtons()">
+        <button (click)="goSignal(bd.typ)">{{bd.title | translate}}</button>
+      </ng-container>
+    </div>
+
+    <div class="buttons" *ngIf="isEraButtonsVisible" id="eraButtons">
+      <ng-container *ngFor="let era of signalSelector.getEraButtons()">
+        <button (click)="goEra(era.nr)">{{era.title | translate}}</button>
+      </ng-container>
+    </div>
+      <div class="buttons" *ngIf="isSignalButtonsVisible" id="signalButtons">
+        <ng-container *ngFor="let sigTyp of signalSelector.getSignalButtons()">
+          <button (click)="selectSignal(sigTyp.id)">{{sigTyp.title | translate}}</button>
+        </ng-container>
+      </div>
+
+  </div>
+</ion-content>

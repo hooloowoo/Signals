@@ -1,0 +1,113 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>{{'title-text' | translate}}</ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only (click)="darkLight()"><ion-icon [name]="daynight"></ion-icon></button>
+            <button ion-button icon-only (click)="selectLang()"><ion-icon [name]="selectedlang"></ion-icon></button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+<ion-content overflow-scroll="false">
+    <div id="selector-bar" style="width:100%;display:block;height:3.5em;">
+        <button id="era-selector" (click)="showEras()">{{eraName | translate}}</button>
+        <button id="signal-selector" (click)="showSignals()">{{sTypeName | translate}}</button>
+        <button id="typ-selector" (click)="showTypes()">{{signalName | translate}}</button>
+    </div>
+    <div id="container">
+        <div [@darkState]="dark" id="signal">
+            <img class="{{mastStyle}}" src="assets/imgs/hu_I/{{imgMast}}.png" />
+            <img class="{{mastStyle}}" *ngIf="isLastBlock" src="assets/imgs/hu_I/hudistwarnplate3.png" />
+            <img class="main-plate" src="assets/imgs/hu_I/{{imgMainPlate}}.png" />
+            <img class="track-plate" *ngIf="isExit" src="assets/imgs/hu_I/lg_3_extplate_track.png" />
+            <img class="ext-plate-era" src="assets/imgs/hu_I/lg_3_xplate.png" />
+
+            <div id="next-signal">
+                <div id="nx-title">{{ 'NEXT_SIGNAL' | translate }}</div>
+                <img class="{{mastStyle}}" src="assets/imgs/hu_I/{{imgNextMast}}.png" />
+                <img class="{{nextMainPlateStyle}}" src="assets/imgs/hu_I/{{imgNextMainPlate}}.png" />
+
+                <img class="dist-entry-plate" *ngIf="isLastBlock" src="assets/imgs/hu_I/lg_3_distplate_32.png" />
+                <img class="dist-ext-plate" *ngIf="isLastBlock" src="assets/imgs/hu_I/lg_3_xplate_entry.png" />
+
+            </div>
+        </div>
+        <div id="lights">
+            <div class="light {{redStyle}}" [@lightRed]="mainRed"></div>
+            <div class="light {{greenStyle}}" [@lightGreen]="mainGreen"></div>
+            <div class="light green2" *ngIf="isMainSecondGreenLightVisible" [@lightGreen]="mainGreen2"></div>
+            <div class="light green3" *ngIf="isMainThirdGreenLightVisible" [@lightGreen]="mainGreen3"></div>
+            <div class="light {{yellowLeftStyle}}" [@lightYellow]="mainYellowLeft"></div>
+            <div class="light {{yellowRightStyle}}" [@lightYellow]="mainYellowRight"></div>
+
+            <div class="light ext-light" [@lightYellow]="nextSlow == 'on' && mainRed != 'on' ? 'on' : 'off'"></div>
+            <div class="light ext-light" [@lightBlue]="state == 'pstop' ? 'on' : 'off'"></div>
+
+            <div class="light-small xtrack1" [@lightSmallWhite]="isXTrack ? 'on' : 'off'"></div>
+            <div class="light-small xtrack2" [@lightSmallWhite]="isXTrack ? 'on' : 'off'"></div>
+            <div class="light-small xtrack3" [@lightSmallWhite]="isXTrack ? 'on' : 'off'"></div>
+            <div class="light-small xtrack4" [@lightSmallWhite]="isXTrack ? 'on' : 'off'"></div>
+            <div class="light-small xtrack5" [@lightSmallWhite]="isXTrack ? 'on' : 'off'"></div>
+
+            <div id="next-lights">
+                <ng-container *ngIf="isLastBlock || diststate == 'slow'">
+                    <div class="light entry-red" [@lightNextRed]="nextRed"></div>
+                    <div class="light entry-green" [@lightNextGreen]="nextGreen"></div>
+                    <div class="light entry-green2"  [@lightNextGreen]="nextSlow"></div>
+                    <div class="light entry-yellow" *ngIf="isLastBlock" [@lightNextYellow]="nextGreen || nextSlow"></div>
+                    <div class="light entry-yellow2" *ngIf="isLastBlock" [@lightNextYellow]="nextGreen || nextSlow"></div>
+                </ng-container>
+                <ng-container *ngIf="!isLastBlock && diststate != 'slow'">
+                    <div class="light redmiddle" [@lightNextRed]="nextRed"></div>
+                    <div class="light green2" [@lightNextGreen]="nextGreen"></div>
+                    <div class="light yellow-left-lower" [@lightNextYellow]="((nextRed != 'on') && (diststate == 'nxstop') ? 'on' : 'off')"></div>
+                    <div class="light yellow-right" [@lightNextYellow]="((nextRed != 'on') && (diststate == 'nxstop') ? 'on' : 'off')"></div>
+                </ng-container>
+            </div>
+
+        </div>
+
+        <div class="buttons" *ngIf="isSpeedButtonsVisible" id="nextSpeedButtons">
+            <button class="{{nextStopStyle}}" (click)="nxstop()">{{ 'STOP' | translate }}</button>
+            <button class="{{nextMaxStyle}}" (click)="nxvmax()">{{ 'CLEAR' | translate }}</button>
+            <button class="{{nextSlowStyle}}" (click)="nxslow()" >{{ 'CLEAR_DIV' | translate }}</button>
+            <button class="{{nextDistStyle}}" *ngIf="!isLastBlock && isBlockThreeAspect" (click)="nxdiststop()" >{{ 'NEXT_BLOCK_STOP' | translate }}</button>
+
+        </div>
+
+
+        <div *ngIf="isSpeedButtonsVisible" class="buttons" id="speedButtons">
+            <button class="{{mainStopStyle}}" (click)="astop()">{{ 'STOP' | translate }}</button>
+
+            <button class="{{mainMaxStyle}}" *ngIf="(!isExit)" (click)="avmax()">{{ 'CLEAR' | translate }}</button>
+            <button class="{{mainSlowStyle}}" *ngIf="(!isExit) && (isMainThreeAspect || isMainFourAspect)" (click)="aslow()" >{{ 'CLEAR_DIV' | translate }}</button>
+            <button class="{{mainSlow2Style}}" *ngIf="(!isExit) && isMainFourAspect" (click)="aslow2()" >{{ 'CLEAR_DIV2' | translate }}</button>
+
+            <button class="{{mainMaxStyle}}" *ngIf="isExit" (click)="avmax()">{{ 'EXIT_TO_I' | translate }}</button>
+            <button class="{{mainSlowStyle}}" *ngIf="isExit && (isMainThreeAspect || isMainFourAspect)" (click)="aslow()" >{{ 'EXIT_TO_II' | translate }}</button>
+            <button class="{{mainSlow2Style}}" *ngIf="isExit && isMainFourAspect" (click)="aslow2()" >{{ 'EXIT_TO_III' | translate }}</button>
+
+            <button class="{{mainCallsignStyle}}" *ngIf="!isExit && !isBlockThreeAspect" (click)="permstop()" >{{ 'PERMISSIVE_STOP' | translate }}</button>
+            <button class="{{mainXTrackStyle}}" *ngIf="isExit" (click)="goxtrack()" >{{ 'XTRACK' | translate }}</button>
+
+        </div>
+
+        <div class="buttons" *ngIf="isTypButtonsVisible" id="typButtons">
+            <ng-container *ngFor="let bd of signalSelector.getTypeButtons()">
+                <button (click)="goSignal(bd.typ)">{{bd.title | translate}}</button>
+            </ng-container>
+        </div>
+
+        <div class="buttons" *ngIf="isEraButtonsVisible" id="eraButtons">
+            <ng-container *ngFor="let era of signalSelector.getEraButtons()">
+                <button (click)="goEra(era.nr)">{{era.title | translate}}</button>
+            </ng-container>
+        </div>
+        <div class="buttons" *ngIf="isSignalButtonsVisible" id="signalButtons">
+            <ng-container *ngFor="let sigTyp of signalSelector.getSignalButtons()">
+                <button (click)="selectSignal(sigTyp.id)">{{sigTyp.title | translate}}</button>
+            </ng-container>
+        </div>
+
+    </div>
+</ion-content>

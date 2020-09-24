@@ -1,0 +1,32 @@
+page-hu_cone {
+    @import "assets/css/globals.scss";
+    @import "assets/css/form_main.scss";
+
+    img.mast {
+        position:absolute;
+        left : 61.1%;
+        bottom : 5%;
+        width: 22%;
+        background-color: transparent;
+    }
+
+    img.plate {
+        position:absolute;
+        left : 64.5%;
+        bottom : 42%;
+        width: 15%;
+        background-color: transparent;
+    }
+
+    div.light {
+        position:absolute;
+        top: 51.8%;
+        left: 71.2%;
+        width: 1.5%;
+        height : 1%;
+        border-radius: 50%;
+    }
+}
+
+
+
